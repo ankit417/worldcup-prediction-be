@@ -1,5 +1,4 @@
 
-const Tournament = require("../models/tournament.model")
 const TournamentModel = require("../models/tournament.model")
 
 //GET ALL TOURNAMENT

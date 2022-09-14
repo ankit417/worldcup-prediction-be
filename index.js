@@ -19,6 +19,10 @@ app.use(bodyParser.json())
 const tournamentRoutes = require('./src/routes/tournament.route');
 app.use("/api/v1/tournament",tournamentRoutes);
 
+//GROUP ROUTES
+const groupRoutes = require('./src/routes/groups.routes')
+app.use("/api/v1/groups", groupRoutes)
+
 
 const server = app.listen(8081, function(){
     console.log("Server has started");
