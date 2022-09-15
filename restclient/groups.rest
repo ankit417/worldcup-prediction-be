@@ -1,0 +1,34 @@
+#GET GROUPS BY TOURNAMENT ID
+    #GET ALL GROUPS WHERE TOURNAMENT ID = 1
+GET http://localhost:8081/api/v1/groups/1
+
+### 
+    #CREATE NEW GROUP OF A TOURNAMENT
+POST http://localhost:8081/api/v1/groups HTTP/1.1
+content-Type: application/json
+
+{
+    "tournament_id":1,
+    "group_name":"fixtues",
+    "match_point":10,
+    "is_final":false
+}
+
+###
+    #GET GROUP BY ID
+GET http://localhost:8081/api/v1/groups/group/1
+###
+    #UPDATE GROUP BY ID
+PATCH http://localhost:8081/api/v1/groups/group/1
+Content-Type: application/json
+
+{
+    "tournament_id":1,
+    "group_name":"Group stage",
+    "match_point":15,
+    "is_final":true
+}
+
+###
+    #DELETE GROUP BY ID
+DELETE  http://localhost:8081/api/v1/groups/group/1

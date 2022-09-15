@@ -31,3 +31,4 @@ content-Type: application/json
 }
 ###
     #DELETE TOURNAMENT
+DELETE http://localhost:8081/api/v1/tournament/6
