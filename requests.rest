@@ -1,0 +1,33 @@
+#TOURNAMENTS
+    #GET LIST OF ALL TOURNAMENTS
+GET http://localhost:8081/api/v1/tournament
+
+###
+    #POST TOURNAMENT
+post http://localhost:8081/api/v1/tournament HTTP/1.1
+content-Type: application/json
+
+{
+    "tournament_name" : "nepal",
+    "starting_from" : "2022-12-10",
+    "ending_at":"2023-03-01",
+    "prediction_deadline":"2022-12-09"
+}
+
+###
+    #GET TOURNAMENT BY ID
+GET http://localhost:8081/api/v1/tournament/2
+
+###
+    #UPDATE TOURNAMENT BY ID
+PATCH  http://localhost:8081/api/v1/tournament/2 HTTP/1.1
+content-Type: application/json
+
+{
+    "tournament_name" : "nepal_Updated",
+    "starting_from" : "2022-12-10",
+    "ending_at":"2023-03-01",
+    "prediction_deadline":"2022-12-09"
+}
+###
+    #DELETE TOURNAMENT

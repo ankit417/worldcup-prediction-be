@@ -31,8 +31,47 @@ exports.createTournament = (req , res) =>{
             }
         })
     }
-    // TournamentModel.createTournament((err, tournament)=>{
-    //     if(err) res.send(err)
-    //     res.send(tournament)
-    // })
+}
+
+//GET TOURNAMENT BY ID
+exports.getTournamentById = (req,res)=>{
+    TournamentModel.getTournamentById(req.params.id,(err,tournament)=>{
+        if(err) res.send(err);
+        res.send(tournament)
+    })
+}
+
+
+//UPDATE TOURNAMENT
+exports.updateTournament = (req,res) =>{
+    const tournament = new TournamentModel(req.body)
+    if(req.body.constructor === Object && Object.keys(req.body).length===0)
+    {
+        res.send(400).send({success:false, message:'No data'})
+    }
+    else{
+        TournamentModel.updateTournament(req.params.id,tournament,(err,result)=>{
+            if(err){
+                res.send(err)
+                res.json({status:false, message:"Error inserting data"})
+            }
+            else{
+                res.send(result)
+            }
+        })
+    }
+}
+
+//DELETE TOURNAMENT
+
+exports.deleteTournament = (req,res) => {
+    TournamentModel.deleteTournament(req.params.id , (err,tournament)=>{
+        if(err)
+        {
+            res.send(err)
+        }
+        else{
+            res.json({success:true, message:"tournament deleted successfully"});
+        }
+    })
 }

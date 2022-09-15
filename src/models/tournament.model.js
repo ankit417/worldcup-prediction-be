@@ -36,4 +36,29 @@ Tournament.createTournament = (tournamentReq , result) =>{
     })
 }
 
+//GET TOURNAMENT BY ID
+Tournament.getTournamentById = (id, result)=>{
+    dbConn.query("SELECT * FROM tournament WHERE id=?",id,(err,res)=>{
+        if(err) result(null,err)
+        result(null,res)
+    })
+}
+
+//UPDATE TOURNAMENT
+Tournament.updateTournament = (id,tournamentReqData , result) =>{
+    console.log("tournament req data",tournamentReqData)
+    dbConn.query('UPDATE tournament SET tournament_name=? , starting_from=?,ending_at=?,prediction_deadline=? WHERE id= ?',[tournamentReqData.tournament_name , tournamentReqData.starting_from,tournamentReqData.ending_at,tournamentReqData.prediction_deadline,id],(err,res)=>{
+        if(err) result(null,err)
+        result(null,res)
+    })
+}
+
+//DELETE TOURNAMENT
+Tournament.deleteTournament = (id,result)=>{
+    dbConn.query('DELETE FROM tournament WHERE id=?' ,id ,(err,res)=>{
+        if(err) result(null,err)
+        result(null,res)
+    })
+}
+
 module.exports = Tournament
