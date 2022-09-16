@@ -19,13 +19,12 @@ content-Type: application/json
 GET http://localhost:8081/api/v1/groups/group/1
 ###
     #UPDATE GROUP BY ID
-PATCH http://localhost:8081/api/v1/groups/group/1
+PATCH http://localhost:8081/api/v1/groups/group/2
 Content-Type: application/json
 
 {
     "tournament_id":1,
-    "group_name":"Group stage",
-    "match_point":15,
+    "group_name":"Group stages",
     "is_final":true
 }
 

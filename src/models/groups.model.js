@@ -40,19 +40,27 @@ Groups.getGroupById = (id, result) => {
 //UPDATE GROUP
 Groups.updateGroup = (id, groupReqData, result) => {
   dbConn.query(
-    "UPDATE groups SET tournament_id=?,group_name=?,match_point=?,is_final=? WHERE id=?",
-    [
-      groupReqData.tournament_id,
-      groupReqData.group_name,
-      groupReqData.match_point,
-      groupReqData.is_final,
-      id,
-    ],
+    "UPDATE groups SET ? WHERE id=?",
+    [groupReqData, id],
     (err, res) => {
       if (err) result(null, err);
       result(null, res);
     }
   );
+  //   dbConn.query(
+  //     "UPDATE groups SET tournament_id=?,group_name=?,match_point=?,is_final=? WHERE id=?",
+  //     [
+  //       groupReqData.tournament_id,
+  //       groupReqData.group_name,
+  //       groupReqData.match_point,
+  //       groupReqData.is_final,
+  //       id,
+  //     ],
+  //     (err, res) => {
+  //       if (err) result(null, err);
+  //       result(null, res);
+  //     }
+  //   );
 };
 
 //DELETE GROUP
