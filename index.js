@@ -26,6 +26,10 @@ app.use("/api/v1/groups", groupRoutes);
 const teamRoutes = require('./src/routes/teams.routes');
 app.use("/api/v1/teams",teamRoutes)
 
+//FILES
+app.use('/files',express.static("assets"));
+
+
 const server = app.listen(8081, function(){
     console.log("Server has started");
 })

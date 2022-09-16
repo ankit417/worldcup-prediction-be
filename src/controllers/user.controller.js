@@ -1,11 +1,8 @@
-const UserModal = require("../models/user.model")
+const UserModal = require("../models/user.model");
 
 //GET ALL USERS
 
-exports.getUser = (req , res) =>{
-
-}
-
+exports.getUser = (req, res) => {};
 
 //CREATE USERS
-exports.createUser = (req , res) =>{}
+exports.createUser = (req, res) => {};

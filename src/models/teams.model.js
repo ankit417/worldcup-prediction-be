@@ -8,6 +8,7 @@ const Teams = function(teams){
     this.updated_at = new Date();
 }
 
+//GET ALL TEAMS
 Teams.getAllTeams = (result) => {
     console.log("get all teams")
     dbConn.query("SELECT * FROM team" ,(err,res)=>{
@@ -20,8 +21,9 @@ Teams.getAllTeams = (result) => {
     })
 }
 
+//CREATE TEAMS
 Teams.createTeams = ( teamReq , result) => {
-    dbConn.query("INSERT INTO team SET ?",teamReq, (err,res)=>{
+    dbConn.query("INSERT INTO team SET ?",[teamReq,], (err,res)=>{
         if(err){
             result(null,err)
         }
@@ -31,4 +33,27 @@ Teams.createTeams = ( teamReq , result) => {
     })
 }
 
+//GET TEAMS BY ID
+Teams.getTeamById = (id,result)=>{
+    dbConn.query('SELECT * FROM team WHERE id=?',id,(err,res)=>{
+        if(err) result(null,err)
+        result(null,res)
+    })
+}
+
+//UPDATE TEAM
+Teams.updateTeam = (id , teamReqData , result)=> {
+    dbConn.query('UPDATE team SET ? WHERE id=?',[teamReqData,id],(err,res)=>{
+        if(err) result(null,err)
+        result(null,res)
+    })
+}
+
+//DELETE TEAM
+Teams.deleteTeam = (id,result) => {
+    dbConn.query('DELETE FROM team WHERE id=?' , id, (err,res)=>{
+        if(err) result(null,err)
+        result(null,res)
+    })
+}
 module.exports = Teams;
