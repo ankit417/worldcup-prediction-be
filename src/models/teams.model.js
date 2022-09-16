@@ -8,3 +8,27 @@ const Teams = function(teams){
     this.updated_at = new Date();
 }
 
+Teams.getAllTeams = (result) => {
+    console.log("get all teams")
+    dbConn.query("SELECT * FROM team" ,(err,res)=>{
+        if(err){
+            result(null,err)
+        }
+        else{
+            result(null,res)
+        }
+    })
+}
+
+Teams.createTeams = ( teamReq , result) => {
+    dbConn.query("INSERT INTO team SET ?",teamReq, (err,res)=>{
+        if(err){
+            result(null,err)
+        }
+        else{
+            result(null,res)
+        }
+    })
+}
+
+module.exports = Teams;
