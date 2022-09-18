@@ -19,9 +19,9 @@ exports.createGroups = (req, res) => {
     GroupsModel.createGroups(groupsReq, (err, result) => {
       if (err) {
         res.send(err);
-        res.json({ status: false, message: "Error creating group" });
+        res.json({ success: false, message: "Error creating group" });
       } else {
-        res.send(result);
+        res.json({ success: true, message: "Group created" });
       }
     });
   }
@@ -45,9 +45,9 @@ exports.updateGroup = (req, res) => {
     GroupsModel.updateGroup(req.params.id, group, (err, result) => {
       if (err) {
         res.send(err);
-        res.json({ status: false, message: "Error updating group" });
+        res.json({ success: false, message: "Error updating group" });
       } else {
-        res.send(result);
+        res.json({ success: true, message: "Group updated" });
       }
     });
   }

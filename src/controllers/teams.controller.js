@@ -20,9 +20,9 @@ exports.createTeams = (req, res) => {
     TeamsModal.createTeams(team, (err, result) => {
       if (err) {
         res.send(err);
-        res.json({ status: false, message: "Error creating Team" });
+        res.json({ success: false, message: "Error creating Team" });
       } else {
-        res.send(result);
+        res.json({ success: true, message: "Team Added" });
       }
     });
   }
