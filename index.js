@@ -23,6 +23,10 @@ app.use("/api/v1/groups", groupRoutes);
 const teamRoutes = require("./src/routes/teams.routes");
 app.use("/api/v1/teams", teamRoutes);
 
+//GAME ROUTES
+const gameRoutes = require("./src/routes/game.routes");
+app.use("/api/v1/game", gameRoutes);
+
 //FILES
 app.use("/files", express.static("assets"));
 
