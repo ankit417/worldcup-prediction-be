@@ -21,9 +21,9 @@ exports.createTournament = (req, res) => {
     TournamentModel.createTournament(tournament, (err, result) => {
       if (err) {
         res.send(err);
-        res.json({ status: false, message: "Error inserting data" });
+        res.json({ success: false, message: "Error inserting data" });
       } else {
-        res.send(result);
+        res.json({ success: true, message: "Tournament Created" });
       }
     });
   }

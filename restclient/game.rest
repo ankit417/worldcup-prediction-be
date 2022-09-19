@@ -1,6 +1,6 @@
 ### GET ALL GAME BY GROUP ID
 
-GET http://localhost:8081/api/v1/game/id
+GET http://localhost:8081/api/v1/game/22
 
 ### CREATE GAME
 
@@ -14,3 +14,7 @@ Content-Type: application/json
     "match_date":"2022-12-12",
     "status":3
 }
+
+### DELETE GAME
+
+DELETE http://localhost:8081/api/v1/game/1
