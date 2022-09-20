@@ -25,7 +25,8 @@ Content-Type: application/json
 {
     "tournament_id":1,
     "group_name":"Group stages",
-    "is_final":true
+    "is_final":true,
+    "match_point":5
 }
 
 ###
