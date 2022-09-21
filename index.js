@@ -27,6 +27,10 @@ app.use("/api/v1/teams", teamRoutes);
 const gameRoutes = require("./src/routes/game.routes");
 app.use("/api/v1/game", gameRoutes);
 
+//PREDICTION ROUTES
+const predictionRoutes = require("./src/routes/prediction.routes");
+app.use("/api/v1/prediction", predictionRoutes);
+
 //FILES
 app.use("/files", express.static("assets"));
 

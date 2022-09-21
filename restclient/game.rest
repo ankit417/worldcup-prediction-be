@@ -1,6 +1,6 @@
 ### GET ALL GAME BY GROUP ID
 
-GET http://localhost:8081/api/v1/game/22
+GET http://localhost:8081/api/v1/game/38
 
 ### CREATE GAME
 

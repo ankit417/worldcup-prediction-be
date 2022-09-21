@@ -14,7 +14,12 @@ const Game = function (game) {
 // const getAllGameByGroupIdquery = `SELECT * FROM game INNER JOIN team t1 ON game.teamA_id=t1.id INNER JOIN team t2 on game.teamB_id=t2.id GROUP BY game.teamA_id  WHERE game.group_id=?`;
 const getAllGameByGroupIdquery = "SELECT * FROM game WHERE group_id=?";
 const query = `
-SELECT *,
+SELECT game.id,
+game.group_id,
+game.teamA_id,
+game.teamB_id,
+game.match_date,
+game.status,
 ta.team_name as teama_name, 
 ta.team_logo as teama_logo,
 tb.team_name as teamb_name,
