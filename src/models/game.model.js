@@ -14,10 +14,7 @@ const Game = function (game) {
 // const getAllGameByGroupIdquery = `SELECT * FROM game INNER JOIN team t1 ON game.teamA_id=t1.id INNER JOIN team t2 on game.teamB_id=t2.id GROUP BY game.teamA_id  WHERE game.group_id=?`;
 const getAllGameByGroupIdquery = "SELECT * FROM game WHERE group_id=?";
 const query = `
-SELECT game.id as game_id, 
-game.match_date,
-game.teamA_id,
-game.teamB_id,
+SELECT *,
 ta.team_name as teama_name, 
 ta.team_logo as teama_logo,
 tb.team_name as teamb_name,
@@ -49,6 +46,20 @@ Game.createGameByGroupId = (gameReq, result) => {
       result(null, res);
     }
   });
+};
+
+//UPDATE GAME
+Game.updateGame = (gameId, gameReq, result) => {
+  dbConn.query(
+    "UPDATE game SET ? WHERE id=?",
+    [gameReq, gameId],
+    (err, res) => {
+      if (err) result(null, err);
+      else {
+        result(null, res);
+      }
+    }
+  );
 };
 
 //DELETE GAME

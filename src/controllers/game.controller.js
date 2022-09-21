@@ -24,6 +24,22 @@ exports.createGameByGroupId = (req, res) => {
   }
 };
 
+//UPDATE GAME BY GAME ID
+exports.updateGameByGameId = (req, res) => {
+  const gameReq = new GameModal(req.body);
+  if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
+    res.send(400).send({ success: false, message: "No data" });
+  } else {
+    GameModal.updateGame(req.params.id, gameReq, (err, result) => {
+      if (err) {
+        res.json({ success: false, message: "Error updating game" });
+      } else {
+        res.json({ success: true, message: " Game Updated" });
+      }
+    });
+  }
+};
+
 //DELETE GAME
 exports.deleteGame = (req, res) => {
   GameModal.deleteGameById(req.params.id, (err, game) => {

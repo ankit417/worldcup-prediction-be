@@ -15,6 +15,18 @@ Content-Type: application/json
     "status":3
 }
 
+
+###UPDATE GAME
+PATCH http://localhost:8081/api/v1/game/23
+Content-Type: application/json
+
+{
+    "group_id":22,
+    "teamA_id":51,
+    "teamB_id":53,
+    "match_date":"2022-12-12",
+    "status":3
+}
 ### DELETE GAME
 
 DELETE http://localhost:8081/api/v1/game/1
