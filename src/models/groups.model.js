@@ -5,6 +5,8 @@ const Groups = function (group) {
   this.group_name = group.group_name;
   this.match_point = group.match_point;
   this.is_final = group.is_final;
+  this.user_select = group.user_select;
+  this.number_of_team = group.number_of_team;
   this.created_at = new Date();
   this.updated_at = new Date();
 };
@@ -19,6 +21,7 @@ Groups.getGroupsByTournamentId = (id, result) => {
 
 //CREATE GROUPS INSIDE TOURNAMENT
 Groups.createGroups = (groupsReq, result) => {
+  console.log("group request", groupsReq);
   dbConn.query("INSERT INTO groups SET ? ", groupsReq, (err, res) => {
     if (err) {
       console.log("Error creating group");
