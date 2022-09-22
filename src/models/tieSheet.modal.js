@@ -8,22 +8,27 @@ const TieSheet = function (tieSheet) {
 
 //GET ALL TIESHEET BY GROUP ID
 TieSheet.getTieSheetByGroupId = (id, result) => {
-  dbConn.query("SELECT * FROM tiesheet WHERE group_id= ?", id, (err, res) => {
-    if (err) {
-      return result(null, err);
-    } else {
-      result(null, res);
+  dbConn.query(
+    "SELECT tiesheet.id, tiesheet.group_id as groupId , team.team_name , team.team_logo FROM tiesheet JOIN team ON team.id=tiesheet.team_id WHERE tiesheet.group_id = ?",
+    id,
+    (err, res) => {
+      if (err) {
+        return result(null, err);
+      } else {
+        result(null, res);
+      }
     }
-  });
+  );
 };
 
 //CREATE TIESHEET
 TieSheet.createTieSheet = (tieSheetReq, result) => {
+  console.log("tie sheet add req", tieSheetReq);
   dbConn.query("INSERT INTO tiesheet SET ?", tieSheetReq, (err, res) => {
     if (err) {
       return result(null, err);
     } else {
-      return null, res;
+      return result(null, res);
     }
   });
 };

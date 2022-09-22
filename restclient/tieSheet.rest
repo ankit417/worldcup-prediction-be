@@ -1,0 +1,16 @@
+### GET TIESHEET BY GROUP ID
+
+GET http://localhost:8081/api/v1/tiesheet/46
+
+### POST TIESHEET 
+
+POST http://localhost:8081/api/v1/tiesheet
+Content-Type: application/json
+
+{
+    "group_id":1,
+    "team_id":52
+}
+
+### DELETE TIESHEET
+DELETE http://localhost:8081/api/v1/tiesheet/1

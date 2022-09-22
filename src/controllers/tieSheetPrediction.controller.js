@@ -1,8 +1,8 @@
 const TieSheetPredictionModal = require("../models/tieSheetPrediction.modal");
 
 //GET ALL TIESHEET PREDICTION
-exports.getTieSheetPredictionByGroupId = (req, res) => {
-  TieSheetPredictionModal.getTieSheetPredictionByGroupId(
+exports.getTieSheetPrediction = (req, res) => {
+  TieSheetPredictionModal.getTieSheetPrediction(
     req.params.id,
     (err, tiesheet) => {
       if (err) res.json({ success: false, message: "error getting tiesheet" });

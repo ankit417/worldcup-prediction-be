@@ -1,0 +1,17 @@
+### GET TIESHEET PREDICTION BY GROUP ID
+
+GET http://localhost:8081/api/v1/tiesheetprediction/1
+
+### POST TIESHEET PREDICTION
+
+POST http://localhost:8081/api/v1/tiesheetprediction
+Content-Type: application/json
+
+{
+    "user_id":1,
+    "group_id":1,
+    "predicted_team_id":52
+}
+
+### DELETE TIESHEET PREDICTION
+DELETE http://localhost:8081/api/v1/tiesheetprediction/1
