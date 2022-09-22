@@ -1,4 +1,3 @@
-const e = require("express");
 const TeamsModal = require("../models/teams.model");
 
 //GET ALL TEAMS
