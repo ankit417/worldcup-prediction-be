@@ -6,4 +6,48 @@ const TieSheetPrediction = function (TieSheetPrediction) {
   this.prediction_team_id = TieSheetPrediction.prediction_team_id;
 };
 
+//GET ALL TIESHEET BY GROUP ID
+TieSheetPrediction.getTieSheetPrediction = (id, result) => {
+  dbConn.query(
+    "SELECT * FROM tiesheet_prediction WHERE group_id= ?",
+    id,
+    (err, res) => {
+      if (err) {
+        return result(null, err);
+      } else {
+        result(null, res);
+      }
+    }
+  );
+};
+
+//CREATE TIESHEET
+TieSheetPrediction.createTieSheetPrediction = (
+  tieSheetPredictionReq,
+  result
+) => {
+  dbConn.query(
+    "INSERT INTO tiesheet_prediction SET ?",
+    tieSheetPredictionReq,
+    (err, res) => {
+      if (err) {
+        return result(null, err);
+      } else {
+        return null, res;
+      }
+    }
+  );
+};
+
+//DELETE TIESHEET
+TieSheetPrediction.deleteTieSheetPrediction = (id, result) => {
+  dbConn.query("DELETE FROM tiesheet_prediction WHERE id=?", id, (err, res) => {
+    if (err) {
+      return result(null, err);
+    } else {
+      return result(null, res);
+    }
+  });
+};
+
 module.exports = TieSheetPrediction;

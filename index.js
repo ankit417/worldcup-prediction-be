@@ -31,6 +31,13 @@ app.use("/api/v1/game", gameRoutes);
 const predictionRoutes = require("./src/routes/prediction.routes");
 app.use("/api/v1/prediction", predictionRoutes);
 
+//TIESHEET ROUTES [ADMIN ONLY]
+const tieSheetRoutes = require("./src/routes/tieSheet.route");
+app.use("/api/v1/tiesheet", tieSheetRoutes);
+
+//TIESHEET PREDICTION ROUTES [USER]
+const tieSheetPredictionRoutes = require("./src/routes/tieSheetPrediction.route");
+app.use("/api/v1/tiesheetprediction", tieSheetPredictionRoutes);
 //FILES
 app.use("/files", express.static("assets"));
 
