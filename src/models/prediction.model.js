@@ -74,7 +74,7 @@ WHERE game.group_id = groups.id  AND prediction.user_id = user.id
 GROUP BY prediction.user_id
 `;
 Prediction.getAllPredictions = (result) => {
-  dbConn.query(query, (err, res) => {
+  dbConn.query(finalWorking, (err, res) => {
     if (err) {
       result(null, err);
     } else {
