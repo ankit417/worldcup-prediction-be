@@ -1,3 +1,4 @@
 ### GET ALL PREDICTION
 
 GET http://localhost:8081/api/v1/prediction
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQW5raXQgQWNoYXJ5YSIsInJvbGUiOiJhZG1pbiIsImlkIjoxLCJpYXQiOjE2NjQ1NDE0NDB9.4etKI4VckPVf0JMfqUS76IuXhif3qaMSqDIBEs9Cjxss

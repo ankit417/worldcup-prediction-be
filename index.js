@@ -1,6 +1,9 @@
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+
+const jwt = require("jsonwebtoken");
 
 // const AppError = require('./src/utils')
 // const errorHandler = require('./src/utils')
@@ -10,6 +13,16 @@ app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// app.post("/login", (req, res) => {
+//   const username = req.body.username;
+//   const user = { name: username };
+//   const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+//   res.json({ accessToken: accessToken });
+// });
+
+const authRoutes = require("./src/routes/auth.routes");
+app.use("/api/v1/auth", authRoutes);
 
 //TOURNAMENT ROUTES
 const tournamentRoutes = require("./src/routes/tournament.route");
