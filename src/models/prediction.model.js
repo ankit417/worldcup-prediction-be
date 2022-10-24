@@ -2,7 +2,7 @@ const dbConn = require("../config/db.config");
 
 const Prediction = function (prediction) {
   this.game_id = prediction.game_id;
-  this.prediction = prediction.Prediction;
+  this.prediction = prediction.prediction;
   this.user_id = prediction.user_id;
   this.created_at = new Date();
   this.updated_at = new Date();
@@ -83,4 +83,69 @@ Prediction.getAllPredictions = (result) => {
   });
 };
 
+// const userPrediction = `SELECT * FROM prediction`
+Prediction.getUserPrediction = (userId, result) => {
+  dbConn.query(
+    "SELECT * FROM prediction where user_id=?",
+    userId,
+    (err, res) => {
+      if (err) result(null, err);
+      result(null, res);
+    }
+  );
+};
+
+//CREATE PREDICTION
+Prediction.createPrediction = (userId, predictionReq, result) => {
+  // const gameId = predictionReq?.game_id;
+  dbConn.query(
+    "SELECT * FROM prediction WHERE game_id=? AND user_id=?",
+    [predictionReq.game_id, userId],
+    (err, res) => {
+      // console.log("create prediction", err, res);
+      // result(null, err + res);
+      // console.log(res.length);
+      // if (err) result(null, err);
+      // result(null, res);
+      if (err) result(null, err);
+      else {
+        console.log("res", res);
+        // var data = res[0];
+        // console.log("Data", data.id);
+        if (res.length > 0) {
+          predictionId = res[0].id;
+          //query here
+          dbConn.query(
+            "UPDATE prediction SET prediction=? WHERE id=?",
+            [predictionReq.prediction, predictionId],
+            (err, res) => {
+              if (err) result(null, err);
+              result(null, res);
+            }
+          );
+        } else {
+          dbConn.query(
+            "INSERT INTO prediction(game_id,user_id,prediction,created_at,updated_at) VALUES (?,?,?,?,?)",
+            [
+              predictionReq.game_id,
+              userId,
+              predictionReq.prediction,
+              predictionReq.created_at,
+              predictionReq.updated_at,
+            ],
+            (err, res) => {
+              if (err) result(null, err);
+              result(null, res);
+            }
+          );
+        }
+        // if (res.length > 0) {
+        //   // dbConn.query("")
+        //   console.log("res id", res[0].id);
+        // } else {
+        // }
+      }
+    }
+  );
+};
 module.exports = Prediction;
