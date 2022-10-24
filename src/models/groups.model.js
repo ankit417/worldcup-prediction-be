@@ -42,6 +42,7 @@ Groups.getGroupById = (id, result) => {
 
 //UPDATE GROUP
 Groups.updateGroup = (id, groupReqData, result) => {
+  console.log("group req data", groupReqData);
   dbConn.query(
     "UPDATE groups SET ? WHERE id=?",
     [groupReqData, id],

@@ -1,7 +1,17 @@
+### ADMIN LOGIN
 post http://localhost:8081/api/v1/auth/login HTTP/1.1
 content-Type: application/json
 
 {
     "username":"acharya.ankit417@gmail.com",
     "password":"ankit55"
+}
+
+### USER LOGIN
+post http://localhost:8081/api/v1/auth/login HTTP/1.1
+content-Type: application/json
+
+{
+    "username":"test@gmail.com",
+    "password":"12345678"
 }

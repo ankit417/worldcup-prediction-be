@@ -30,8 +30,8 @@ exports.createGroups = (req, res) => {
 //GET GROUP BY ID
 exports.getGroupById = (req, res) => {
   GroupsModel.getGroupById(req.params.id, (err, group) => {
-    if (err) res.send(err);
-    res.send(group);
+    if (err) res.json({ success: false, message: "Error getting group info" });
+    res.json({ success: true, data: group });
   });
 };
 

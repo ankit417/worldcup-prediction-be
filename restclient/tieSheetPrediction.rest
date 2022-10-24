@@ -1,16 +1,18 @@
 ### GET TIESHEET PREDICTION BY GROUP ID
 
-GET http://localhost:8081/api/v1/tiesheetprediction/1
+GET http://localhost:8081/api/v1/tiesheetprediction/45
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYXNjaGFsIHNocmVzdGhhIiwicm9sZSI6InVzZXIiLCJpZCI6MiwiaWF0IjoxNjY2NjEwMzQwfQ.WYaL__aWcDSX7IK_73vTV2A1o4Z4UrNgnDK1rXsPhQM
 
 ### POST TIESHEET PREDICTION
 
 POST http://localhost:8081/api/v1/tiesheetprediction
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYXNjaGFsIHNocmVzdGhhIiwicm9sZSI6InVzZXIiLCJpZCI6MiwiaWF0IjoxNjY2NjEwMzQwfQ.WYaL__aWcDSX7IK_73vTV2A1o4Z4UrNgnDK1rXsPhQM
 Content-Type: application/json
 
 {
     "user_id":1,
     "group_id":1,
-    "predicted_team_id":52
+    "predicted_team_id":53
 }
 
 ### DELETE TIESHEET PREDICTION

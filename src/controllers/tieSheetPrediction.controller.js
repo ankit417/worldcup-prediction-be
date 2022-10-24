@@ -4,6 +4,7 @@ const TieSheetPredictionModal = require("../models/tieSheetPrediction.modal");
 exports.getTieSheetPrediction = (req, res) => {
   TieSheetPredictionModal.getTieSheetPrediction(
     req.params.id,
+    req.user.id,
     (err, tiesheet) => {
       if (err) res.json({ success: false, message: "error getting tiesheet" });
       else {
@@ -21,6 +22,7 @@ exports.createTieSheetPrediction = (req, res) => {
   } else {
     TieSheetPredictionModal.createTieSheetPrediction(
       tieSheetReq,
+      req.user.id,
       (err, result) => {
         if (err) {
           res.json({ success: false, message: "Error creating Tiesheet" });
