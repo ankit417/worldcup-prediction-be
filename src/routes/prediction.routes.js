@@ -5,7 +5,7 @@ const authenticateToken = require("../utils/authenticateToken");
 const predictionController = require("../controllers/prediction.controller");
 
 //GET ALL PREDICTIONS
-router.get("/", authenticateToken, predictionController.getPrediction);
+router.get("/:id", authenticateToken, predictionController.getPrediction);
 
 // GET ALL PREDICTION OF USER
 router.get(

@@ -1,9 +1,9 @@
 const PredictionModal = require("../models/prediction.model");
 
-//GET ALL PREDICTION
+//GET ALL PREDICTION of a tournament
 exports.getPrediction = (req, res) => {
   console.log("req user", req.user);
-  PredictionModal.getAllPredictions((err, predictions) => {
+  PredictionModal.getAllPredictions(req.params.id, (err, predictions) => {
     if (err) {
       res.json({ success: false, message: "Error getting predictions" });
     } else {

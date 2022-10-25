@@ -42,7 +42,7 @@ SELECT userId,full_name,email, SUM(totalPoint) as finalPoint FROM (
   JOIN game on game.id = prediction.game_id
   JOIN groups
   JOIN user
-  WHERE game.group_id = groups.id  AND prediction.user_id = user.id 
+  WHERE game.group_id = groups.id  AND prediction.user_id = user.id  AND groups.tournament_id=?
   GROUP BY prediction.user_id
   UNION ALL
   SELECT 
@@ -73,8 +73,8 @@ JOIN user
 WHERE game.group_id = groups.id  AND prediction.user_id = user.id
 GROUP BY prediction.user_id
 `;
-Prediction.getAllPredictions = (result) => {
-  dbConn.query(finalWorking, (err, res) => {
+Prediction.getAllPredictions = (id, result) => {
+  dbConn.query(finalWorking, id, (err, res) => {
     if (err) {
       result(null, err);
     } else {
