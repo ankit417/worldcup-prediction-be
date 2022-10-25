@@ -23,14 +23,44 @@ TieSheet.getTieSheetByGroupId = (id, result) => {
 
 //CREATE TIESHEET
 TieSheet.createTieSheet = (tieSheetReq, result) => {
-  console.log("tie sheet add req", tieSheetReq);
-  dbConn.query("INSERT INTO tiesheet SET ?", tieSheetReq, (err, res) => {
-    if (err) {
-      return result(null, err);
-    } else {
-      return result(null, res);
+  dbConn.query(
+    `SELECT groups.number_of_team, (SELECT COUNT(tiesheet.group_id) FROM tiesheet 
+   WHERE tiesheet.group_id = groups.id) AS addedTiesheet
+FROM groups where groups.id=?`,
+    tieSheetReq.group_id,
+    (err, res) => {
+      if (err) result(null, err);
+      else {
+        console.log("create tiesheet", res[0].addedTiesheet);
+        if (res[0]?.addedTiesheet >= res[0]?.number_of_team) {
+          return result(
+            (err = "canot add more team"),
+            (result = "Cannot add more team")
+          );
+        } else {
+          dbConn.query(
+            "INSERT INTO tiesheet SET ?",
+            tieSheetReq,
+            (err, res) => {
+              if (err) {
+                return result(null, err);
+              } else {
+                return result(null, res);
+              }
+            }
+          );
+        }
+      }
     }
-  });
+  );
+
+  // dbConn.query("INSERT INTO tiesheet SET ?", tieSheetReq, (err, res) => {
+  //   if (err) {
+  //     return result(null, err);
+  //   } else {
+  //     return result(null, res);
+  //   }
+  // });
 };
 
 //DELETE TIESHEET

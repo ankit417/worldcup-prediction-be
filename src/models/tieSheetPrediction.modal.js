@@ -53,20 +53,35 @@ TieSheetPrediction.createTieSheetPrediction = (
       else {
         if (res.length > 0) {
           console.log("already exist");
-          return result(null, "Already exists");
+          return result((err = "Team already selected"), "Already exists");
         } else {
           dbConn.query(
-            "INSERT INTO tiesheet_prediction(user_id,group_id,predicted_team_id) VALUES(?,?,?)",
-            [
-              userId,
-              tieSheetPredictionReq.group_id,
-              tieSheetPredictionReq.predicted_team_id,
-            ],
+            `SELECT groups.number_of_team , (SELECT COUNT(tiesheet_prediction.group_id) FROM tiesheet_prediction WHERE tiesheet_prediction.group_id=groups.id AND tiesheet_prediction.user_id=?) AS user_predicted from groups WHERE groups.id=?`,
+            [userId, tieSheetPredictionReq.group_id],
             (err, res) => {
-              console.log("already exist nope");
-
-              if (err) result(null, err);
-              result(null, res);
+              if (err) {
+                return result((err = "Cannot add more team"), err);
+              } else {
+                if (res[0]?.user_predicted >= res[0].number_of_team) {
+                  return result(
+                    (err = `already added ${res[0].number_of_team} team`),
+                    (err = `already added ${res[0].number_of_team} team`)
+                  );
+                } else {
+                  dbConn.query(
+                    "INSERT INTO tiesheet_prediction(user_id,group_id,predicted_team_id) VALUES(?,?,?)",
+                    [
+                      userId,
+                      tieSheetPredictionReq.group_id,
+                      tieSheetPredictionReq.predicted_team_id,
+                    ],
+                    (err, res) => {
+                      if (err) result(null, err);
+                      result(null, res);
+                    }
+                  );
+                }
+              }
             }
           );
         }

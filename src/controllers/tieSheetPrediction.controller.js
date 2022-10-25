@@ -25,7 +25,7 @@ exports.createTieSheetPrediction = (req, res) => {
       req.user.id,
       (err, result) => {
         if (err) {
-          res.json({ success: false, message: "Error creating Tiesheet" });
+          res.json({ success: false, message: err });
         } else {
           res.json({ success: true, message: "Tie sheet Added" });
         }
