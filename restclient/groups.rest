@@ -16,7 +16,7 @@ content-Type: application/json
 
 ###
     #GET GROUP BY ID
-GET http://localhost:8081/api/v1/groups/group/1
+GET http://localhost:8081/api/v1/groups/group/45
 ###
     #UPDATE GROUP BY ID
 PATCH http://localhost:8081/api/v1/groups/group/2

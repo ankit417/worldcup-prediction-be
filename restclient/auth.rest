@@ -12,6 +12,23 @@ post http://localhost:8081/api/v1/auth/login HTTP/1.1
 content-Type: application/json
 
 {
-    "username":"test@gmail.com",
-    "password":"12345678"
+    "username":"acharya.ankit417@gmail.com",
+    "password":"ankit55"
+}
+
+### USER LIST
+GET http://localhost:8081/api/v1/auth/userlist
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQW5raXQgQWNoYXJ5YSIsInJvbGUiOiJhZG1pbiIsImlkIjoxLCJpYXQiOjE2NjY2OTY2MzB9.H8zjJ4FdxThfdgEZRNsi21QVO4LsaWByl7WZvnaJwNY
+
+### CREATE USER
+POST http://localhost:8081/api/v1/auth/createuser
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQW5raXQgQWNoYXJ5YSIsInJvbGUiOiJhZG1pbiIsImlkIjoxLCJpYXQiOjE2NjcxNDA3MTh9.Nniqc278Xh_tXue-8xRtOTgrWJv_UyVknaLgEe2I_XI
+
+content-Type: application/json
+
+{
+    "full_name": "Ankit",
+    "email": "ankit@gmail.com",
+    "password": "12345678",
+    "role": "user",
 }

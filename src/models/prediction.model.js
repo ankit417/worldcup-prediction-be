@@ -85,11 +85,14 @@ Prediction.getAllPredictions = (id, result) => {
 
 // const userPrediction = `SELECT * FROM prediction`
 Prediction.getUserPrediction = (userId, result) => {
+  console.log("should call this--------");
+
   dbConn.query(
     "SELECT * FROM prediction where user_id=?",
     userId,
     (err, res) => {
       if (err) result(null, err);
+      console.log("res--------------", res);
       result(null, res);
     }
   );
