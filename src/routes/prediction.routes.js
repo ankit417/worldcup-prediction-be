@@ -14,6 +14,13 @@ router.get(
   predictionController.getUserPrediction
 );
 
+// GET ALL PREDICTION OF USER
+router.get(
+  "/predictedbyuser/:id",
+  authenticateToken,
+  predictionController.getUserPredictionById
+);
+
 //CREATE PREDICTION
 router.post(
   "/predict",

@@ -25,6 +25,18 @@ exports.getUserPrediction = (req, res) => {
   });
 };
 
+//GET USER PREDICTION BY ID OF A USER
+exports.getUserPredictionById = (req, res) => {
+  PredictionModal.getUserPrediction(req.params.id, (err, predictions) => {
+    if (err) {
+      res.json({ success: false, message: "Error getting predictions" });
+    } else {
+      console.log("Prediction", predictions);
+      res.json({ success: true, data: predictions });
+    }
+  });
+};
+
 //CREATE PREDICTION
 exports.createPrediction = (req, res) => {
   const predictionReq = new PredictionModal(req.body);

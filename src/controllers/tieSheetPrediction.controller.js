@@ -13,6 +13,19 @@ exports.getTieSheetPrediction = (req, res) => {
     }
   );
 };
+//GET ALL TIESHEET PREDICTION
+exports.getTieSheetPredictionByUserId = (req, res) => {
+  TieSheetPredictionModal.getTieSheetPrediction(
+    req.params.id,
+    req.params.userid,
+    (err, tiesheet) => {
+      if (err) res.json({ success: false, message: "error getting tiesheet" });
+      else {
+        return res.json({ success: true, data: tiesheet });
+      }
+    }
+  );
+};
 
 //CREATE TIESHEET
 exports.createTieSheetPrediction = (req, res) => {

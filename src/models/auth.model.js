@@ -3,6 +3,7 @@ const dbConn = require("../config/db.config");
 const USER = function (user) {
   this.full_name = user.full_name;
   this.email = user.email;
+  this.phone = user.phone;
   this.password = user.password;
   this.role = user.role;
 };
@@ -23,7 +24,7 @@ USER.userAuth = (user, result) => {
 };
 
 USER.userList = (result) => {
-  dbConn.query("SELECT id,full_name,email,role FROM user", (err, res) => {
+  dbConn.query("SELECT id,full_name,email,phone,role FROM user", (err, res) => {
     if (err) result(null, err);
     result(null, res);
   });
@@ -95,6 +96,17 @@ USER.changePassword = (id, passwordReq, result) => {
       result("User not found", "user not found");
     }
   });
+};
+
+USER.getUserInfo = (id, result) => {
+  dbConn.query(
+    "SELECT id,full_name,email,phone FROM user WHERE id=?",
+    id,
+    (err, res) => {
+      if (err) result(null, err);
+      result(null, res);
+    }
+  );
 };
 
 module.exports = USER;

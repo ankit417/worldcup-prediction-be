@@ -10,6 +10,9 @@ router.post("/login", authController.userLogin);
 //USER
 router.get("/user", authenticateToken, authController.user);
 
+//USER INFO
+router.get("/userinfo/:id", authenticateToken, authController.userInfo);
+
 //GET ALL USERS LIST
 router.get("/userlist", authenticateToken, authController.userlist);
 

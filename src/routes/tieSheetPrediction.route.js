@@ -11,6 +11,13 @@ router.get(
   tieSheetPredictionController.getTieSheetPrediction
 );
 
+//GET ALL TIESHEET PREDICTION OF A USER BY USER ID
+router.get(
+  "/:id/user/:userid",
+  authenticateToken,
+  tieSheetPredictionController.getTieSheetPredictionByUserId
+);
+
 //CREATE TIESHEET
 router.post(
   "/",

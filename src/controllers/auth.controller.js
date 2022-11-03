@@ -85,3 +85,12 @@ exports.changePassword = (req, res) => {
     }
   });
 };
+
+exports.userInfo = (req, res) => {
+  UserModal.getUserInfo(req.params.id, (err, user) => {
+    if (err) res.json({ success: false, message: err });
+    else {
+      res.json({ success: true, data: user });
+    }
+  });
+};
