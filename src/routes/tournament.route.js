@@ -19,4 +19,6 @@ router.patch("/:id", authenticateToken, tournamentController.updateTournament);
 //DELETE TOURNAMENT BY ID
 router.delete("/:id", authenticateToken, tournamentController.deleteTournament);
 
+//SHOW LEADERBOARD OF A TOURNAMENT
+// router.
 module.exports = router;

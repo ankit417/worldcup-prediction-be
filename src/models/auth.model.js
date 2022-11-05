@@ -145,16 +145,40 @@ USER.editUser = (id, userReq, result) => {
 USER.searchUser = (searchReq, result) => {
   console.log("user req", searchReq);
   // result(null, userReq);
-  dbConn.query(
-    "SELECT id,full_name,email,phone,role FROM user WHERE email=? OR phone=?",
-    [searchReq.email, searchReq.phone],
-    (err, res) => {
-      if (err) result(null, err);
-      else {
-        result(null, res);
+  if (searchReq.email && searchReq.phone) {
+    dbConn.query(
+      "SELECT id,full_name,email,phone,role FROM user WHERE email=? OR phone=?",
+      [searchReq.email, searchReq.phone],
+      (err, res) => {
+        if (err) result(null, err);
+        else {
+          return result(null, res);
+        }
       }
-    }
-  );
+    );
+  } else if (searchReq.email) {
+    dbConn.query(
+      "SELECT id,full_name,email,phone,role FROM user WHERE email=?",
+      [searchReq.email],
+      (err, res) => {
+        if (err) result(null, err);
+        else {
+          result(null, res);
+        }
+      }
+    );
+  } else {
+    dbConn.query(
+      "SELECT id,full_name,email,phone,role FROM user WHERE phone=?",
+      [searchReq.phone],
+      (err, res) => {
+        if (err) result(null, err);
+        else {
+          result(null, res);
+        }
+      }
+    );
+  }
 };
 
 module.exports = USER;
