@@ -64,7 +64,16 @@ Tournament.updateTournament = (id, tournamentReqData, result) => {
 Tournament.deleteTournament = (id, result) => {
   dbConn.query("DELETE FROM tournament WHERE id=?", id, (err, res) => {
     if (err) result(null, err);
-    result(null, res);
+    else {
+      dbConn.query(
+        "DELETE FROM groups WHERE tournament_id=?",
+        id,
+        (err, res) => {
+          result(null, res);
+        }
+      );
+    }
+    // result(null, res);
   });
 };
 

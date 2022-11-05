@@ -4,7 +4,7 @@ const authenticateToken = require("../utils/authenticateToken");
 
 const predictionController = require("../controllers/prediction.controller");
 
-// //GET ALL PREDICTIONS
+// //GET ALL PREDICTIONS OF A TOURNAMENT
 router.get("/p/:id", authenticateToken, predictionController.getPrediction);
 
 // GET ALL PREDICTION OF USER
