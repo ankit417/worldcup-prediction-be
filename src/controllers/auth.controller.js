@@ -49,7 +49,7 @@ exports.userlist = (req, res) => {
         res.json({
           success: true,
           data: user,
-          totalCount: user[0]?.totalCount ?? 0,
+          // totalCount: user.length > 0 ? user[0]?.totalCount ?? 0 : 0,
           page: req.query.page,
           limit: req.query.limit,
         });

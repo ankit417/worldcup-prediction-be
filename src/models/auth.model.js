@@ -59,9 +59,11 @@ USER.userAuth = (user, result) => {
 };
 
 USER.userList = (req, result) => {
+  const limit = req.query.limit * 1;
+  const page = req.query.page > 0 ? (req.query.page - 1) * limit : 0;
   dbConn.query(
     "SELECT id,full_name,email,phone,role,(SELECT COUNT(*) FROM `user`) AS totalCount FROM user LIMIT ?,?",
-    [(req.query.page - 1) * req.query.limit, req.query.limit * 1],
+    [page, limit],
     (err, res) => {
       if (err) result(null, err);
       result(null, res);
@@ -229,7 +231,7 @@ USER.searchUser = (searchReq, result) => {
     );
   } else if (searchReq.email) {
     dbConn.query(
-      "SELECT id,full_name,email,phone,role FROM user WHERE email=?",
+      `SELECT id,full_name,email,phone,role FROM user WHERE email LIKE '%${searchReq.email}%'`,
       [searchReq.email],
       (err, res) => {
         if (err) result(null, err);
@@ -240,7 +242,7 @@ USER.searchUser = (searchReq, result) => {
     );
   } else {
     dbConn.query(
-      "SELECT id,full_name,email,phone,role FROM user WHERE phone=?",
+      `SELECT id,full_name,email,phone,role FROM user WHERE phone LIKE '%${searchReq.phone}%'`,
       [searchReq.phone],
       (err, res) => {
         if (err) result(null, err);
