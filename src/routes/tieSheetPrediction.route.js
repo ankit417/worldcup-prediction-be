@@ -26,6 +26,10 @@ router.post(
 );
 
 //DELETE TIESHEET
-router.delete("/:id", tieSheetPredictionController.deleteTieSheetPrediction);
+router.delete(
+  "/:id",
+  authenticateToken,
+  tieSheetPredictionController.deleteTieSheetPrediction
+);
 
 module.exports = router;

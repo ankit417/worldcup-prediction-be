@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const authenticateToken = require("../utils/authenticateToken");
 
 const path = require("path");
 const multer = require("multer");
@@ -20,14 +21,24 @@ const upload = multer({ storage: storage });
 const teamsController = require("../controllers/teams.controller");
 
 //GET ALL TEAMS
-router.get("/", teamsController.getAllTeams);
+router.get("/", authenticateToken, teamsController.getAllTeams);
 
 //CREATE TEAM
-router.post("/", upload.single("team_logo"), teamsController.createTeams);
+router.post(
+  "/",
+  authenticateToken,
+  upload.single("team_logo"),
+  teamsController.createTeams
+);
 
 //UPDATE TEAM
-router.patch("/:id", upload.single("team_logo"), teamsController.updateTeam);
+router.patch(
+  "/:id",
+  authenticateToken,
+  upload.single("team_logo"),
+  teamsController.updateTeam
+);
 
 //DELETE TEAM
-router.delete("/:id", teamsController.deleteTeam);
+router.delete("/:id", authenticateToken, teamsController.deleteTeam);
 module.exports = router;

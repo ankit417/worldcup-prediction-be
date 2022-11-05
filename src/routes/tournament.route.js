@@ -1,21 +1,22 @@
 const express = require("express");
 const router = express.Router();
+const authenticateToken = require("../utils/authenticateToken");
 
 const tournamentController = require("../controllers/tournament.controller");
 
 //GET ALL TOURNAMENT
-router.get("/", tournamentController.getTournament);
+router.get("/", authenticateToken, tournamentController.getTournament);
 
 //CREATE TOURNAMENT
-router.post("/", tournamentController.createTournament);
+router.post("/", authenticateToken, tournamentController.createTournament);
 
 //GET TOURNAMENT BY ID
-router.get("/:id", tournamentController.getTournamentById);
+router.get("/:id", authenticateToken, tournamentController.getTournamentById);
 
 //UPDATE TOURNAMENT BY ID
-router.patch("/:id", tournamentController.updateTournament);
+router.patch("/:id", authenticateToken, tournamentController.updateTournament);
 
 //DELETE TOURNAMENT BY ID
-router.delete("/:id", tournamentController.deleteTournament);
+router.delete("/:id", authenticateToken, tournamentController.deleteTournament);
 
 module.exports = router;
