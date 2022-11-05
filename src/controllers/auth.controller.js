@@ -86,6 +86,15 @@ exports.changePassword = (req, res) => {
   });
 };
 
+exports.resetPassword = (req, res) => {
+  UserModal.resetPassword(req.params.id, req.body, (err, result) => {
+    if (err) res.json({ success: false, message: err });
+    else {
+      res.json({ success: true, message: "Password updated" });
+    }
+  });
+};
+
 exports.userInfo = (req, res) => {
   UserModal.getUserInfo(req.params.id, (err, user) => {
     if (err) res.json({ success: false, message: err });
@@ -109,4 +118,15 @@ exports.editUser = (req, res) => {
       }
     });
   }
+};
+
+exports.searchUser = (req, res) => {
+  // const userReq = new UserModal(req.body);
+  UserModal.searchUser(req.body, (err, result) => {
+    if (err) {
+      res.json({ success: false, message: err });
+    } else {
+      res.json({ success: true, data: result });
+    }
+  });
 };

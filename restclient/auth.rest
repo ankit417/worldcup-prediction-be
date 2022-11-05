@@ -32,3 +32,12 @@ content-Type: application/json
     "password": "12345678",
     "role": "user",
 }
+
+### SEARCH USER
+POST http://localhost:8081/api/v1/auth/search
+
+content-Type: application/json
+{
+    "phone": "9860240417",
+    "email": "ankit@gmail.com",
+}

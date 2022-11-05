@@ -1,4 +1,5 @@
 const dbConn = require("../config/db.config");
+const { user } = require("../controllers/auth.controller");
 
 const USER = function (user) {
   this.full_name = user.full_name;
@@ -98,6 +99,25 @@ USER.changePassword = (id, passwordReq, result) => {
   });
 };
 
+//ADMIN RESET PASSWORD
+USER.resetPassword = (id, passwordReq, result) => {
+  if (passwordReq.password) {
+    dbConn.query(
+      "UPDATE user SET password=? WHERE id=?",
+      [passwordReq.password, id],
+      (err, res) => {
+        if (err) result(null, err);
+        else {
+          result(null, res);
+        }
+      }
+    );
+  } else {
+    return result("error updating password", "error updating password");
+  }
+};
+
+//User info
 USER.getUserInfo = (id, result) => {
   dbConn.query(
     "SELECT id,full_name,email,phone FROM user WHERE id=?",
@@ -109,6 +129,7 @@ USER.getUserInfo = (id, result) => {
   );
 };
 
+//Edit User
 USER.editUser = (id, userReq, result) => {
   dbConn.query(
     "UPDATE user SET full_name=?,email=?,phone=? WHERE id=?",
@@ -116,6 +137,22 @@ USER.editUser = (id, userReq, result) => {
     (err, res) => {
       if (err) result(null, err);
       result(null, res);
+    }
+  );
+};
+
+//Search User
+USER.searchUser = (searchReq, result) => {
+  console.log("user req", searchReq);
+  // result(null, userReq);
+  dbConn.query(
+    "SELECT id,full_name,email,phone,role FROM user WHERE email=? OR phone=?",
+    [searchReq.email, searchReq.phone],
+    (err, res) => {
+      if (err) result(null, err);
+      else {
+        result(null, res);
+      }
     }
   );
 };

@@ -16,11 +16,21 @@ router.get("/userinfo/:id", authenticateToken, authController.userInfo);
 //GET ALL USERS LIST
 router.get("/userlist", authenticateToken, authController.userlist);
 
+//SEARCH USERLIST
+router.post("/userlist", authenticateToken, authController.searchUser);
+
 //CREATE USER
 router.post("/createuser", authenticateAdminToken, authController.createUser);
 
 //EDIT USER
-router.patch("/edituser/:id", authenticateToken, authController.editUser);
+router.patch("/edituser/:id", authenticateAdminToken, authController.editUser);
+
+//RESET PASSWORD BY ADMIN
+router.patch(
+  "/resetpassword/:id",
+  authenticateAdminToken,
+  authController.resetPassword
+);
 
 //DELETE USER
 router.delete(
@@ -34,5 +44,8 @@ router.patch(
   authenticateToken,
   authController.changePassword
 );
+
+//SEARCH USER
+// router.post("/search", authController.searchUser);
 
 module.exports = router;
