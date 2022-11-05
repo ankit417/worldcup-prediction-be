@@ -17,7 +17,6 @@ exports.createTieSheet = (req, res) => {
     res.send(400).send({ success: false, message: "No data" });
   } else {
     TieSheetModal.createTieSheet(tieSheetReq, (err, result) => {
-      console.log("tiesheet err", result);
       if (err) {
         res.json({ success: false, message: "Error creating Tiesheet" });
       } else {

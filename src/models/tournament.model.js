@@ -11,10 +11,8 @@ const Tournament = function (tournament) {
 Tournament.getAllTournament = (result) => {
   dbConn.query("SELECT * FROM tournament", (err, res) => {
     if (err) {
-      console.log("Error while fetching tournaments");
       result(null, err);
     } else {
-      console.log("tournament fetched successful", res);
       result(null, res);
     }
   });
@@ -24,10 +22,8 @@ Tournament.getAllTournament = (result) => {
 Tournament.createTournament = (tournamentReq, result) => {
   dbConn.query("INSERT INTO tournament SET ? ", tournamentReq, (err, res) => {
     if (err) {
-      console.log("error while inserting data");
       result(null, err);
     } else {
-      console.log("successfully created tournaments");
       result(null, res);
     }
   });
@@ -43,7 +39,6 @@ Tournament.getTournamentById = (id, result) => {
 
 //UPDATE TOURNAMENT
 Tournament.updateTournament = (id, tournamentReqData, result) => {
-  console.log("tournament req data", tournamentReqData);
   dbConn.query(
     "UPDATE tournament SET tournament_name=? , starting_from=?,ending_at=?,prediction_deadline=? WHERE id= ?",
     [
@@ -82,7 +77,6 @@ Tournament.leaderboardSetting = (id, value, result) => {
     "UPDATE tournament SET show_leaderboard=? WHERE id=?",
     [value, id],
     (err, res) => {
-      console.log("update leaderboard", res);
       if (err) result(null, err);
       result(null, res);
     }

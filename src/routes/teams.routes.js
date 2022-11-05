@@ -10,7 +10,6 @@ const storage = multer.diskStorage({
     cb(null, "./assets/teamsImage");
   },
   filename: (req, file, cb) => {
-    console.log("files", file);
     const name = Date.now() + path.extname(file.originalname);
     cb(null, name);
   },

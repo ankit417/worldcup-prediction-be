@@ -28,19 +28,6 @@ TieSheetPrediction.createTieSheetPrediction = (
   userId,
   result
 ) => {
-  // console.log(tieSheetPredictionReq);
-  // dbConn.query(
-  //   "INSERT INTO tiesheet_prediction SET ?",
-  //   tieSheetPredictionReq,
-  //   (err, res) => {
-  //     if (err) {
-  //       return result(null, err);
-  //     } else {
-  //       return result(null, res);
-  //     }
-  //   }
-  // );
-  console.log("predicting user team");
   dbConn.query(
     "SELECT * FROM tiesheet_prediction WHERE user_id=? AND group_id=? AND predicted_team_id=?",
     [
@@ -52,7 +39,6 @@ TieSheetPrediction.createTieSheetPrediction = (
       if (err) result(null, err);
       else {
         if (res.length > 0) {
-          console.log("already exist");
           return result((err = "Team already selected"), "Already exists");
         } else {
           dbConn.query(

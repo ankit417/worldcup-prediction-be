@@ -2,7 +2,6 @@ const GroupsModel = require("../models/groups.model");
 
 //GET ALL GROUPS
 exports.getGroupsByTournamentId = (req, res) => {
-  console.log("we are here");
   GroupsModel.getGroupsByTournamentId(req.params.id, (err, groups) => {
     if (err) res.send(err);
     res.send({ success: true, data: groups });
@@ -11,7 +10,6 @@ exports.getGroupsByTournamentId = (req, res) => {
 
 //CREATE GROUPS INSIDE TOURNAMENT
 exports.createGroups = (req, res) => {
-  console.log("create groups request controller");
   const groupsReq = new GroupsModel(req.body);
   if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
     res.send(400).send({ success: false, message: "No data" });
@@ -55,7 +53,6 @@ exports.updateGroup = (req, res) => {
 
 // DELETE GROUP
 exports.deleteGroup = (req, res) => {
-  console.log("Delete group controller");
   GroupsModel.deleteGroup(req.params.id, (err, group) => {
     if (err) res.send(err);
     res.json({ success: true, message: "Group deleted successful" });

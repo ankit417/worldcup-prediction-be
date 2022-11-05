@@ -2,7 +2,6 @@ const TeamsModal = require("../models/teams.model");
 
 //GET ALL TEAMS
 exports.getAllTeams = (req, res) => {
-  console.log("teams controller");
   TeamsModal.getAllTeams((err, teams) => {
     if (err) res.send(err);
     res.send({ success: true, data: teams });

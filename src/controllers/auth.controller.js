@@ -31,13 +31,11 @@ exports.userLogin = (req, res) => {
 };
 
 exports.user = (req, res) => {
-  console.log("req", req.user);
   res.json({ success: true, data: req.user });
   //   res.json(req.user);
 };
 
 exports.userlist = (req, res) => {
-  console.log(req.user);
   if (req.user.role !== "admin") {
     res.json({ success: false, message: "Permission denied" });
   } else {
@@ -85,8 +83,7 @@ exports.deleteUser = (req, res) => {
 
 exports.changePassword = (req, res) => {
   const userId = req?.user?.id;
-  console.log("change password userid", userId);
-  UserModal.changePassword(userId, req.body, (err, game) => {
+  UserModal.changePassword(userId, req.body, (err, result) => {
     if (err) res.json({ success: false, message: err });
     else {
       res.json({ success: true, message: "Password changed" });

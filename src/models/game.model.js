@@ -44,7 +44,6 @@ Game.getAllGameByGroupId = (id, result) => {
 //CREATE GAME
 Game.createGameByGroupId = (gameReq, result) => {
   dbConn.query("INSERT INTO game SET ?", gameReq, (err, res) => {
-    console.log("create game res", res, err);
     if (err) {
       result(null, err);
     } else {

@@ -21,10 +21,8 @@ Groups.getGroupsByTournamentId = (id, result) => {
 
 //CREATE GROUPS INSIDE TOURNAMENT
 Groups.createGroups = (groupsReq, result) => {
-  console.log("group request", groupsReq);
   dbConn.query("INSERT INTO groups SET ? ", groupsReq, (err, res) => {
     if (err) {
-      console.log("Error creating group");
       result(null, err);
     } else {
       result(null, res);
@@ -42,7 +40,6 @@ Groups.getGroupById = (id, result) => {
 
 //UPDATE GROUP
 Groups.updateGroup = (id, groupReqData, result) => {
-  console.log("group req data", groupReqData);
   dbConn.query(
     "UPDATE groups SET ? WHERE id=?",
     [groupReqData, id],
@@ -69,7 +66,6 @@ Groups.updateGroup = (id, groupReqData, result) => {
 
 //DELETE GROUP
 Groups.deleteGroup = (id, result) => {
-  console.log("Delete group modal", id);
   dbConn.query("DELETE FROM groups WHERE id=?", id, (err, res) => {
     if (err) result(null, err);
     result(null, res);

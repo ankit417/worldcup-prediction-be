@@ -14,7 +14,6 @@ const USER = function (user) {
 USER.userAuth = (user, result) => {
   const username = user.username;
   const password = user.password;
-  console.log("USER MODAL", username, password);
   dbConn.query(
     "SELECT password FROM user WHERE email=?",
     [username],
@@ -22,7 +21,6 @@ USER.userAuth = (user, result) => {
       if (err) result(null, err);
       if (res.length > 0) {
         await bcrypt.compare(password, res[0].password, (err, res) => {
-          // console.log("bcrypt result", result);
           if (res) {
             dbConn.query(
               "SELECT id,full_name,email,role FROM user WHERE email=?",
@@ -39,8 +37,6 @@ USER.userAuth = (user, result) => {
             );
           }
         });
-        // return result;
-        // console.log("login res", result);
       } else {
         return result("User not found", "User not found");
       }
@@ -88,13 +84,11 @@ USER.createUser = async (userReq, result) => {
   const hashedPW = await bcrypt.hash(userReq.password, salt);
   userReq.password = hashedPW;
   dbConn.query("SELECT email from user where email =?", email, (err, res) => {
-    console.log(res);
     if (res.length > 0) {
       return result("User already exist", "error");
     } else {
       dbConn.query("INSERT INTO user SET ? ", userReq, (err, res) => {
         if (err) {
-          console.log("Error creating user");
           result(null, err);
         } else {
           result(null, res);
@@ -104,7 +98,6 @@ USER.createUser = async (userReq, result) => {
   });
   // dbConn.query("INSERT INTO user SET ? ", userReq, (err, res) => {
   //   if (err) {
-  //     console.log("Error creating user");
   //     result(null, err);
   //   } else {
   //     result(null, res);
@@ -216,7 +209,6 @@ USER.editUser = (id, userReq, result) => {
 
 //Search User
 USER.searchUser = (searchReq, result) => {
-  console.log("user req", searchReq);
   // result(null, userReq);
   if (searchReq.email && searchReq.phone) {
     dbConn.query(

@@ -85,14 +85,11 @@ Prediction.getAllPredictions = (id, result) => {
 
 // const userPrediction = `SELECT * FROM prediction`
 Prediction.getUserPrediction = (userId, result) => {
-  console.log("should call this--------");
-
   dbConn.query(
     "SELECT * FROM prediction where user_id=?",
     userId,
     (err, res) => {
       if (err) result(null, err);
-      console.log("res--------------", res);
       result(null, res);
     }
   );
@@ -105,16 +102,9 @@ Prediction.createPrediction = (userId, predictionReq, result) => {
     "SELECT * FROM prediction WHERE game_id=? AND user_id=?",
     [predictionReq.game_id, userId],
     (err, res) => {
-      // console.log("create prediction", err, res);
-      // result(null, err + res);
-      // console.log(res.length);
-      // if (err) result(null, err);
-      // result(null, res);
       if (err) result(null, err);
       else {
-        console.log("res", res);
         // var data = res[0];
-        // console.log("Data", data.id);
         if (res.length > 0) {
           predictionId = res[0].id;
           //query here
@@ -144,7 +134,6 @@ Prediction.createPrediction = (userId, predictionReq, result) => {
         }
         // if (res.length > 0) {
         //   // dbConn.query("")
-        //   console.log("res id", res[0].id);
         // } else {
         // }
       }

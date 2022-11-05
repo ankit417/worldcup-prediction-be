@@ -31,7 +31,6 @@ FROM groups where groups.id=?`,
     (err, res) => {
       if (err) result(null, err);
       else {
-        console.log("create tiesheet", res[0].addedTiesheet);
         if (res[0]?.addedTiesheet >= res[0]?.number_of_team) {
           return result(
             (err = "canot add more team"),
