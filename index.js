@@ -9,7 +9,12 @@ const jwt = require("jsonwebtoken");
 // const errorHandler = require('./src/utils')
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+  })
+);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
