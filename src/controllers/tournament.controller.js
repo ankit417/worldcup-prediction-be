@@ -63,9 +63,27 @@ exports.updateTournament = (req, res) => {
 exports.deleteTournament = (req, res) => {
   TournamentModel.deleteTournament(req.params.id, (err, tournament) => {
     if (err) {
-      res.send(err);
+      res.json({ success: false, message: "Error deleting tournament" });
     } else {
       res.json({ success: true, message: "tournament deleted successfully" });
     }
   });
+};
+
+//LEADERBOARD SETTING ON/OFF
+exports.leaderboardSetting = (req, res) => {
+  TournamentModel.leaderboardSetting(
+    req.params.id,
+    req.params.value,
+    (err, result) => {
+      if (err) {
+        res.json({
+          success: false,
+          message: "Error changing leaderboard setting",
+        });
+      } else {
+        res.json({ success: true, message: "Leaderboard setting changed" });
+      }
+    }
+  );
 };

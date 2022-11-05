@@ -77,4 +77,16 @@ Tournament.deleteTournament = (id, result) => {
   });
 };
 
+Tournament.leaderboardSetting = (id, value, result) => {
+  dbConn.query(
+    "UPDATE tournament SET show_leaderboard=? WHERE id=?",
+    [value, id],
+    (err, res) => {
+      console.log("update leaderboard", res);
+      if (err) result(null, err);
+      result(null, res);
+    }
+  );
+};
+
 module.exports = Tournament;
