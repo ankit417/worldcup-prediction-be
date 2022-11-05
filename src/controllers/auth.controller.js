@@ -94,3 +94,19 @@ exports.userInfo = (req, res) => {
     }
   });
 };
+
+exports.editUser = (req, res) => {
+  const userReq = new UserModal(req.body);
+  if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
+    res.status(400).send({ success: false, message: "No data" });
+  } else {
+    UserModal.editUser(req.params.id, userReq, (err, result) => {
+      if (err) {
+        // res.send(err);
+        res.json({ success: false, message: err });
+      } else {
+        res.json({ success: true, message: "User Updated" });
+      }
+    });
+  }
+};

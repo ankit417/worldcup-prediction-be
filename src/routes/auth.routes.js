@@ -19,6 +19,9 @@ router.get("/userlist", authenticateToken, authController.userlist);
 //CREATE USER
 router.post("/createuser", authenticateAdminToken, authController.createUser);
 
+//EDIT USER
+router.patch("/edituser/:id", authenticateToken, authController.editUser);
+
 //DELETE USER
 router.delete(
   "/deleteuser/:id",

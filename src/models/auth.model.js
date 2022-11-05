@@ -109,4 +109,15 @@ USER.getUserInfo = (id, result) => {
   );
 };
 
+USER.editUser = (id, userReq, result) => {
+  dbConn.query(
+    "UPDATE user SET full_name=?,email=?,phone=? WHERE id=?",
+    [userReq.name, userReq.email, userReq.phone, id],
+    (err, res) => {
+      if (err) result(null, err);
+      result(null, res);
+    }
+  );
+};
+
 module.exports = USER;
