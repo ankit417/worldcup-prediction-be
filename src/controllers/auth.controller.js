@@ -9,7 +9,7 @@ exports.userLogin = (req, res) => {
     if (err)
       res.json({
         success: false,
-        message: "error getting message",
+        message: "Incorrect username password",
       });
     else {
       if (userAuth.length > 0) {
@@ -18,7 +18,9 @@ exports.userLogin = (req, res) => {
           role: userAuth[0].role,
           id: userAuth[0].id,
         };
-        const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+        const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+          expiresIn: "1d",
+        });
         user.accessToken = accessToken;
         res.json({ success: true, data: user });
       } else {
@@ -40,11 +42,17 @@ exports.userlist = (req, res) => {
     res.json({ success: false, message: "Permission denied" });
   } else {
     // res.json({ success: true, message: "success" });
-    UserModal.userList((err, user) => {
+    UserModal.userList(req, (err, user) => {
       if (err) {
         res.json({ success: false, message: "Error getting user list" });
       } else {
-        res.json({ success: true, data: user });
+        res.json({
+          success: true,
+          data: user,
+          totalCount: user[0]?.totalCount ?? 0,
+          page: req.query.page,
+          limit: req.query.limit,
+        });
       }
     });
   }

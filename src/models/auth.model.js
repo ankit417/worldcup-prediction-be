@@ -1,3 +1,4 @@
+const bcrypt = require("bcrypt");
 const dbConn = require("../config/db.config");
 const { user } = require("../controllers/auth.controller");
 
@@ -15,24 +16,65 @@ USER.userAuth = (user, result) => {
   const password = user.password;
   console.log("USER MODAL", username, password);
   dbConn.query(
-    "SELECT id,full_name,email,role FROM user WHERE email=? AND password=?",
-    [username, password],
+    "SELECT password FROM user WHERE email=?",
+    [username],
+    async (err, res) => {
+      if (err) result(null, err);
+      if (res.length > 0) {
+        await bcrypt.compare(password, res[0].password, (err, res) => {
+          // console.log("bcrypt result", result);
+          if (res) {
+            dbConn.query(
+              "SELECT id,full_name,email,role FROM user WHERE email=?",
+              [username],
+              (err, res) => {
+                if (err) result(null, err);
+                result(null, res);
+              }
+            );
+          } else {
+            return result(
+              "Username password not match",
+              "Username password not match"
+            );
+          }
+        });
+        // return result;
+        // console.log("login res", result);
+      } else {
+        return result("User not found", "User not found");
+      }
+      // if (err) result(null, err);
+      // result(null, res);
+    }
+  );
+  // dbConn.query(
+  //   "SELECT id,full_name,email,role FROM user WHERE email=? AND password=?",
+  //   [username, password],
+  //   (err, res) => {
+  //     if (err) result(null, err);
+  //     result(null, res);
+  //   }
+  // );
+};
+
+USER.userList = (req, result) => {
+  dbConn.query(
+    "SELECT id,full_name,email,phone,role,(SELECT COUNT(*) FROM `user`) AS totalCount FROM user LIMIT ?,?",
+    [(req.query.page - 1) * req.query.limit, req.query.limit * 1],
     (err, res) => {
       if (err) result(null, err);
       result(null, res);
     }
   );
-};
-
-USER.userList = (result) => {
-  dbConn.query("SELECT id,full_name,email,phone,role FROM user", (err, res) => {
-    if (err) result(null, err);
-    result(null, res);
-  });
+  // dbConn.query("SELECT  id,full_name,email,phone,role FROM user", (err, res) => {
+  //   if (err) result(null, err);
+  //   result(null, res);
+  // });
 };
 
 //CREATE USER
-USER.createUser = (userReq, result) => {
+USER.createUser = async (userReq, result) => {
   if (userReq.password.length < 8) {
     result(
       "Password length must be greater or equal to 8",
@@ -40,6 +82,9 @@ USER.createUser = (userReq, result) => {
     );
   }
   const email = userReq.email;
+  const salt = await bcrypt.genSalt(10);
+  const hashedPW = await bcrypt.hash(userReq.password, salt);
+  userReq.password = hashedPW;
   dbConn.query("SELECT email from user where email =?", email, (err, res) => {
     console.log(res);
     if (res.length > 0) {
@@ -77,22 +122,45 @@ USER.deleteUser = (id, result) => {
 
 //CHANGE PASSWORD
 USER.changePassword = (id, passwordReq, result) => {
-  dbConn.query("SELECT * from USER where id=?", id, (err, res) => {
+  dbConn.query("SELECT * from USER where id=?", id, async (err, res) => {
     if (res.length > 0) {
-      if (res[0].password == passwordReq.oldPass) {
-        dbConn.query(
-          "UPDATE user SET password=? WHERE id=?",
-          [passwordReq.newPass, id],
-          (err, res) => {
-            if (err) result(null, err);
-            else {
-              result(null, res);
-            }
+      await bcrypt.compare(
+        passwordReq.oldPass,
+        res[0].password,
+        async (bcryptError, bcryptRes) => {
+          if (bcryptRes) {
+            const salt = await bcrypt.genSalt(10);
+            const hashedPW = await bcrypt.hash(passwordReq.oldPass, salt);
+
+            dbConn.query(
+              "UPDATE user SET password=? WHERE id=?",
+              [hashedPW, id],
+              (err, res) => {
+                if (err) result(null, err);
+                else {
+                  result(null, res);
+                }
+              }
+            );
+          } else {
+            result("Incorrect password", "Incorrect password");
           }
-        );
-      } else {
-        result("Incorrect password", "Incorrect password");
-      }
+        }
+      );
+      // if (res[0].password == passwordReq.oldPass) {
+      //   dbConn.query(
+      //     "UPDATE user SET password=? WHERE id=?",
+      //     [passwordReq.newPass, id],
+      //     (err, res) => {
+      //       if (err) result(null, err);
+      //       else {
+      //         result(null, res);
+      //       }
+      //     }
+      //   );
+      // } else {
+      //   result("Incorrect password", "Incorrect password");
+      // }
     } else {
       result("User not found", "user not found");
     }
@@ -100,11 +168,14 @@ USER.changePassword = (id, passwordReq, result) => {
 };
 
 //ADMIN RESET PASSWORD
-USER.resetPassword = (id, passwordReq, result) => {
+USER.resetPassword = async (id, passwordReq, result) => {
   if (passwordReq.password) {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPW = await bcrypt.hash(passwordReq.password, salt);
+
     dbConn.query(
       "UPDATE user SET password=? WHERE id=?",
-      [passwordReq.password, id],
+      [hashedPW, id],
       (err, res) => {
         if (err) result(null, err);
         else {
