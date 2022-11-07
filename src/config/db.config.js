@@ -1,5 +1,12 @@
 const mysql = require("mysql");
 
+// const dbConn = mysql.createConnection({
+//   host: "localhost",
+//   user: "root",
+//   password: "",
+//   database: "prediction",
+// });
+
 const dbConn = mysql.createConnection({
   host: "localhost",
   user: "ankit",

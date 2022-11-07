@@ -58,6 +58,7 @@ Game.updateGame = (gameId, gameReq, result) => {
     "UPDATE game SET ? WHERE id=?",
     [gameReq, gameId],
     (err, res) => {
+      console.log("update game", err, res);
       if (err) result(null, err);
       else {
         result(null, res);
