@@ -58,7 +58,7 @@ USER.userList = (req, result) => {
   const limit = req.query.limit * 1;
   const page = req.query.page > 0 ? (req.query.page - 1) * limit : 0;
   dbConn.query(
-    "SELECT id,full_name,email,phone,role,(SELECT COUNT(*) FROM `user`) AS totalCount FROM user LIMIT ?,?",
+    "SELECT id,full_name,email,phone,role,(SELECT COUNT(*) FROM `user`) AS totalCount FROM user",
     [page, limit],
     (err, res) => {
       if (err) result(null, err);

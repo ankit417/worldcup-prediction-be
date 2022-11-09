@@ -54,7 +54,7 @@ SELECT userId,full_name,email, SUM(totalPoint) as finalPoint FROM (
   JOIN groups
   JOIN tiesheet on tiesheet_prediction.predicted_team_id = tiesheet.team_id AND tiesheet_prediction.group_id = tiesheet.group_id
   JOIN user on user.id = tiesheet_prediction.user_id
-  WHERE tiesheet_prediction.group_id=groups.id GROUP BY tiesheet_prediction.user_id) t1 GROUP BY userId
+  WHERE tiesheet_prediction.group_id=groups.id GROUP BY tiesheet_prediction.user_id) t1 GROUP BY userId,full_name,email
   
   
   `;
