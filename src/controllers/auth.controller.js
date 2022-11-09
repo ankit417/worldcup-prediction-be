@@ -1,5 +1,6 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
+const sgMail = require("@sendgrid/mail");
 
 const UserModal = require("../models/auth.model");
 //USER LOGIN
@@ -67,9 +68,31 @@ exports.createUser = (req, res) => {
         res.json({ success: false, message: err });
       } else {
         res.json({ success: true, message: "User created" });
+        SendMailToNewUser(userReq);
       }
     });
   }
+};
+
+const SendMailToNewUser = (userReq) => {
+  console.log("send mail", userReq);
+  const msg = {
+    to: userReq.email, // Change to your recipient
+    from: "donotreply@yetifcmelbourne.com", // Change to your verified sender
+    subject: "User Account Created at Yeti FC",
+    text: `Dear ${userReq.full_name}, your username is ${userReq.email} and password: ${userReq.password} . Please keep it confidential`,
+    html: "<strong></strong>",
+  };
+
+  sgMail
+    .send(msg)
+    .then((response) => {
+      console.log(response[0].statusCode);
+      console.log(response[0].headers);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 };
 
 exports.deleteUser = (req, res) => {
