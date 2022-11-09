@@ -78,7 +78,7 @@ const SendMailToNewUser = (userReq) => {
   console.log("send mail", userReq);
   const msg = {
     to: userReq.email, // Change to your recipient
-    from: "donotreply@yetifcmelbourne.com", // Change to your verified sender
+    from: "mail@yetifcmelbourne.com", // Change to your verified sender
     subject: "User Account Created at Yeti FC",
     text: `Dear ${userReq.full_name}, your username is ${userReq.email} and password: ${userReq.password} . Please keep it confidential`,
     html: "<strong></strong>",
