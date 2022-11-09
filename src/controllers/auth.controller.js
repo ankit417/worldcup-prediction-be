@@ -91,7 +91,7 @@ const SendMailToNewUser = (userReq) => {
       console.log(response[0].headers);
     })
     .catch((error) => {
-      console.error(error);
+      console.error(JSON.stringify(error));
     });
 };
 
