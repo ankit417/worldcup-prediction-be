@@ -68,7 +68,7 @@ exports.createUser = (req, res) => {
         res.json({ success: false, message: err });
       } else {
         res.json({ success: true, message: "User created" });
-        SendMailToNewUser(userReq);
+        SendMailToNewUser(req.body);
       }
     });
   }
@@ -81,7 +81,7 @@ const SendMailToNewUser = (userReq) => {
     from: "mail@yetifcmelbourne.com", // Change to your verified sender
     subject: "User Account Created at Yeti FC",
     text: `Dear ${userReq.full_name}, your username is ${userReq.email} and password: ${userReq.password} . Please keep it confidential`,
-    html: `<p>Dear ${userReq.full_name}, your username is ${userReq.email} and password: ${userReq.password} . <br> Please keep it confidential</p>`,
+    html: `<p>Dear ${userReq.full_name}, your username is ${userReq.email} and password: ${userReq.password} . <br> Please keep it confidential and change it via app</p>`,
   };
 
   sgMail.setApiKey(
