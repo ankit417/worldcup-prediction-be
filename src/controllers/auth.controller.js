@@ -108,7 +108,7 @@ exports.deleteUser = (req, res) => {
 };
 
 exports.changePassword = (req, res) => {
-  const userId = req?.user?.id;
+  const userId = req?.user.id;
   console.log("Change password", req.user);
   UserModal.changePassword(userId, req.body, (err, result) => {
     if (err) res.json({ success: false, message: err });
