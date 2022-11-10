@@ -81,7 +81,7 @@ const SendMailToNewUser = (userReq) => {
     from: "mail@yetifcmelbourne.com", // Change to your verified sender
     subject: "User Account Created at Yeti FC",
     text: `Dear ${userReq.full_name}, your username is ${userReq.email} and password: ${userReq.password} . Please keep it confidential`,
-    html: "<strong></strong>",
+    html: `<p>Dear ${userReq.full_name}, your username is ${userReq.email} and password: ${userReq.password} . <br> Please keep it confidential</p>`,
   };
 
   sgMail.setApiKey(
