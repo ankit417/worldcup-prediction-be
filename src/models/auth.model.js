@@ -118,6 +118,7 @@ USER.deleteUser = (id, result) => {
 //CHANGE PASSWORD
 USER.changePassword = (id, passwordReq, result) => {
   dbConn.query("SELECT * from USER where id=?", id, async (err, res) => {
+    console.log("change pw res", res);
     if (res.length > 0) {
       await bcrypt.compare(
         passwordReq.oldPass,
