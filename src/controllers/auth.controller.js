@@ -84,6 +84,9 @@ const SendMailToNewUser = (userReq) => {
     html: "<strong></strong>",
   };
 
+  sgMail.setApiKey(
+    "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"
+  );
   sgMail
     .send(msg)
     .then((response) => {
