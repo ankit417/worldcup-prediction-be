@@ -119,14 +119,14 @@ USER.deleteUser = (id, result) => {
 USER.changePassword = (id, passwordReq, result) => {
   dbConn.query("SELECT * from USER where id=?", id, async (err, res) => {
     console.log("change pw res", res);
-    if (res.length > 0) {
+    if (res[0].password != undefined) {
       await bcrypt.compare(
         passwordReq.oldPass,
         res[0].password,
         async (bcryptError, bcryptRes) => {
           if (bcryptRes) {
             const salt = await bcrypt.genSalt(10);
-            const hashedPW = await bcrypt.hash(passwordReq.oldPass, salt);
+            const hashedPW = await bcrypt.hash(passwordReq.newPass, salt);
 
             dbConn.query(
               "UPDATE user SET password=? WHERE id=?",
