@@ -28,7 +28,7 @@ content-Type: application/json
 
 {
     "full_name": "Ankit",
-    "email": "ankit@gmail.com",
+    "email": "acharya.ankit417+1@gmail.com",
     "password": "12345678",
     "role": "user",
 }

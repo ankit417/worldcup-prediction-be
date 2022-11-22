@@ -1,2 +1,30 @@
 node_modules
 ToDo.md
+
+
+
+import { Client } from "@sendgrid/client";
+import sgMail = require("@sendgrid/mail");
+
+// Test setClient() method
+sgMail.setClient(new Client());
+
+// Test setApiKey() method
+sgMail.setApiKey("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");
+
+// Test setSubstitutionWrappers() method
+sgMail.setSubstitutionWrappers("{{", "}}")
+
+// Test send() method
+sgMail.send({
+  from: "mail@yetifcmelbourne.com",
+  to: "sth.rohit@gmail.com",
+  subject: "Test Email",
+  cc: { name: "Some One", email: "someone@example.org" },
+  text: "This is a test email",
+  html: "<p>This is a test email</p>"
+}).then(result => {
+  console.log("Sent email");
+}, err => {
+  console.error(err.response.body);
+});

@@ -55,3 +55,15 @@ exports.createPrediction = (req, res) => {
     );
   }
 };
+
+//GENERATE PREDICTION
+
+exports.generatePrediction = (req, res) => {
+  PredictionModal.generatePrediction(id, (err, result) => {
+    if (err) {
+      res.json({ success: false, message: "Error generating prediction" });
+    } else {
+      res.json({ success: true, message: result });
+    }
+  });
+};
